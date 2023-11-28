@@ -1,18 +1,18 @@
 import { Response } from "express";
-import { ListAllExercisesUC } from "../../application/listAllExercisesUC";
+import { ListAllUserUseCase } from "../../application/listAllUserUseCase";
 
-export class ListAllExercisesController {
-    constructor(readonly listAllExercisesUC: ListAllExercisesUC) {}
+export class ListAllUserController {
+    constructor(readonly listAllUserUseCase: ListAllUserUseCase) {}
 
     async run(_req: any, res: Response) {
         try {
-            const listAllExercises= await this.listAllExercisesUC.run();
+            const listAllUser = await this.listAllUserUseCase.run();
 
-            if (listAllExercises && listAllExercises.length > 0) {
+            if (listAllUser && listAllUser.length > 0) {
                 return res.status(200).send({
                     status: "success",
                     data: {
-                        exercises: listAllExercises, 
+                        users: listAllUser, // Cambié la clave a "users" para reflejar que estamos enviando una lista de usuarios
                     },
                 });
             } else {
