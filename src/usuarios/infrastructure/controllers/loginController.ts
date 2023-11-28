@@ -16,7 +16,7 @@ export class LoginController {
 
             console.log("hasta")
             
-
+            
     
             let loginUser = await this.loginController.run(email, password)
             
@@ -34,9 +34,10 @@ export class LoginController {
             if (loginUser) {
                 return res.status(201).send({
                    data: loginUser
+                  
                 })
             }
-             
+            console.log(loginUser)
         } catch (error) {
             if (error instanceof Error) {
                 if (error.message.includes('Duplicate entry') && error.message.includes('for key \'users.email\'')) {

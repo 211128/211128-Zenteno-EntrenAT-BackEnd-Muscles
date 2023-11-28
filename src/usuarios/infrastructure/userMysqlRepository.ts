@@ -125,13 +125,13 @@ async getUserById(id: number): Promise<User | null> {
 
     const row = rows[0];
     const userData = new User(
-      row.UserID,
-      row.Nombre,
-      row.Correo,
-      row.Contraseña,
-      row.Altura,
-      row.Peso,
-      row.Gender,
+      row.userid,
+      row.nombre,
+      row.correo,
+      row.contraseña,
+      row.altura,
+      row.peso,
+      row.gender,
     );
 
     
