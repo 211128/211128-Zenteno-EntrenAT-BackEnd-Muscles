@@ -1,6 +1,6 @@
 import express from 'express';
 import { Signale } from 'signale';
-import { userRouter } from '../src/usuarios/infrastructure/userRoutes';
+import { userRouter } from './src/usuarios/infrastructure/userRoutes';
 
 const app = express();
 const signale = new Signale();
