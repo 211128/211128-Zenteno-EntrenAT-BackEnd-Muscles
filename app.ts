@@ -13,6 +13,6 @@ app.use('/api/v1/exercise', armRouter)
 
 
 app.listen(3007, () => {
-    signale.success("Server for muscles services online in port 3007");
+    signale.success("Server for muscles service online in port 3007");
 });
 
