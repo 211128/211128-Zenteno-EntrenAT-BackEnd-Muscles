@@ -1,6 +1,7 @@
-# Repositorio c1-211128-hexagonal
+# Repositorio 211128-Zenteno-EntrenAT-BackEnd-Muscles
 
-Bienvenido al repositorio `c1-211128-hexagonal`. Este proyecto utiliza una arquitectura hexagonal y se conecta a una base de datos MySQL.
+Bienvenido al repositorio `211128-Zenteno-EntrenAT-BackEnd-Muscles
+`. Este proyecto utiliza una arquitectura hexagonal y se conecta a una base de datos MySQL.
 
 ## Instrucciones de Instalación
 
@@ -9,9 +10,10 @@ Sigue estos pasos para configurar y ejecutar el proyecto:
 ### **Paso 1:** Clonar el Repositorio
 
 Primero, clona el repositorio en tu máquina local.
+recuerda, cada servicio se encuentra de forma independiente en cada rama del repositorio
 
 ```bash
-git clone https://github.com/211128/211128-EntrenAT-Back.Muscles.git
+git clone 211128-Zenteno-EntrenAT-BackEnd-Muscles.git
 cd c1-211128-hexagonal
 ``````
 
