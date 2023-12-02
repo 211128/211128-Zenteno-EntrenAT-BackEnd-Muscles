@@ -1,6 +1,7 @@
-# Repositorio c1-211099-hexagonal
+# Repositorio 211128-Zenteno-EntrenAT-BackEnd-Muscles
 
-Bienvenido al repositorio `c1-211128-hexagonal`. Este proyecto utiliza una arquitectura hexagonal y se conecta a una base de datos MySQL.
+Bienvenido al repositorio `211128-Zenteno-EntrenAT-BackEnd-Muscles
+`. Este proyecto utiliza una arquitectura hexagonal y se conecta a una base de datos MySQL.
 
 ## Instrucciones de Instalación
 
@@ -9,9 +10,10 @@ Sigue estos pasos para configurar y ejecutar el proyecto:
 ### **Paso 1:** Clonar el Repositorio
 
 Primero, clona el repositorio en tu máquina local.
+recuerda, cada servicio se encuentra de forma independiente en cada rama del repositorio
 
 ```bash
-git clone https://github.com/211128/211128-EntrenAT-Back.git
+git clone 211128-Zenteno-EntrenAT-BackEnd-Muscles.git
 cd c1-211128-hexagonal
 ``````
 
@@ -20,7 +22,7 @@ cd c1-211128-hexagonal
 Crea un archivo .env en la raíz del proyecto. Usa las siguientes variables de entorno:
 
 ```env
-PORT=3001
+PORT=3006
 DB_HOST=localhost
 DB_USER=<TuUsuarioDB>
 DB_DATABASE=<NombreDeLaBaseDeDatos>
@@ -37,6 +39,9 @@ instala las dependencias necesarias:
 
 ```bash
 npm install
-
-
+------------
 npm run dev
+```
+
+# Documentation
+https://documenter.getpostman.com/view/21290432/2s9YeK3A8D
