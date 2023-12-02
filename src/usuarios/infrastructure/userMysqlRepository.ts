@@ -78,14 +78,14 @@ export class UserMysqlRepository implements IUserRepository {
       // Mapear los resultados directamente a instancias de User
       const users: User[] = rows.map((row: any) => {
         return new User(
-          row.ID,      // Cambiado a "ID" con mayúscula según la columna de la base de datos
-          row.name,    // Cambiado a "Name" con mayúscula según la columna de la base de datos
-          row.email,   // Cambiado a "Email" con mayúscula según la columna de la base de datos
-          row.password,// Cambiado a "Password" con mayúscula según la columna de la base de datos
-          row.height,   // Cambiado a "Active" con mayúscula según la columna de la base de datos
-          row.weight,
-          row.sex. 
-          row.id
+          row.userid,
+          row.nombre,
+          row.correo,
+          row.contraseña,
+          row.altura,
+          row.peso,
+          row.gender
+         
         );
       });
 

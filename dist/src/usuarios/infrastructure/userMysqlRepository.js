@@ -69,13 +69,7 @@ class UserMysqlRepository {
                 }
                 // Mapear los resultados directamente a instancias de User
                 const users = rows.map((row) => {
-                    return new user_1.User(row.ID, // Cambiado a "ID" con mayúscula según la columna de la base de datos
-                    row.name, // Cambiado a "Name" con mayúscula según la columna de la base de datos
-                    row.email, // Cambiado a "Email" con mayúscula según la columna de la base de datos
-                    row.password, // Cambiado a "Password" con mayúscula según la columna de la base de datos
-                    row.height, // Cambiado a "Active" con mayúscula según la columna de la base de datos
-                    row.weight, row.sex.
-                        row.id);
+                    return new user_1.User(row.userid, row.nombre, row.correo, row.contraseña, row.altura, row.peso, row.gender);
                 });
                 return users;
             }

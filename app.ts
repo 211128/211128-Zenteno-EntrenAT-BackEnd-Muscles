@@ -12,6 +12,6 @@ app.use('/api/v1/', userRouter);
 
 
 
-app.listen(3006, () => {
-    signale.success("Server online in port 3006");
+app.listen(8080, () => {
+    signale.success("Server online in port 8080");
 });
