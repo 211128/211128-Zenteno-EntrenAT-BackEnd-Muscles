@@ -11,7 +11,7 @@ app.use(express.json());
 app.use('/api/v1/tags', armRouter)
 
 
-app.listen(3006, () => {
-    signale.success("Server online in port 3006");
+app.listen(8080, () => {
+    signale.success("Server online in port 8080");
 });
 
