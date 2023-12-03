@@ -1,17 +1,25 @@
-import express from 'express';
-import { Signale } from 'signale';
-import { armRouter } from './src/honortags/infraestructure/armRoutes';
+import express, {Application} from 'express';
+import proxy from 'express-http-proxy';
 
-const app = express();
+import dotenv from 'dotenv';
+import { Signale } from "signale";
+
+const app:Application = express();
 const signale = new Signale();
-
-app.use(express.json());
-
-// Rutas relacionadas con usuarios
-app.use('/api/v1/tags', armRouter)
+import { Request, Response } from "express";
 
 
-app.listen(8080, () => {
-    signale.success("Server online in port 8080");
+dotenv.config();
+const PORT = process.env.PORT || 3000;
+app.get('/rutine', (req: Request, res: Response) => {
+  res.status(200).send('Rutina ejecutada con éxito');
+})
+app.use('/api/v1/users',proxy('https://users.entranat.site'))
+app.use('/api/v1/exercise',proxy('https://muscle.entranat.site'));
+app.use('/api/v1/tags',proxy('https://tags.entranat.site'));
+
+
+
+app.listen(PORT,() => {
+  signale.success(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
