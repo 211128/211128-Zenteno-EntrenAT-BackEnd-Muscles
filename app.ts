@@ -15,7 +15,7 @@ app.get('/rutine', (req: Request, res: Response) => {
   res.status(200).send('Rutina ejecutada con éxito');
 })
 app.use('/api/v1/users',proxy('https://users.entranat.site'))
-app.use('/api/v1/exercise',proxy('https://muscle.entranat.site'));
+app.use('/api/v1/exercise',proxy('https://muscles.entranat.site'));
 app.use('/api/v1/tags',proxy('https://tags.entranat.site'));
 
 
