@@ -13,6 +13,6 @@ app.use(armRouter)
 
 
 app.listen(8082, () => {
-    signale.success("Server for muscles service online in port 8080");
+    signale.success("Server for muscles service online in port 8082");
 });
 

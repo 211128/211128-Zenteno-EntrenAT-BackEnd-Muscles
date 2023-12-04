@@ -12,5 +12,5 @@ app.use(express_1.default.json());
 // Rutas relacionadas con usuarios
 app.use(armRoutes_1.armRouter);
 app.listen(8082, () => {
-    signale.success("Server for muscles service online in port 8080");
+    signale.success("Server for muscles service online in port 8082");
 });
