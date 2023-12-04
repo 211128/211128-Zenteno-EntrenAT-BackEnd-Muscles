@@ -9,10 +9,10 @@ app.use(express.json());
 
 // Rutas relacionadas con usuarios
 
-app.use('/api/v1/exercise', armRouter)
+app.use(armRouter)
 
 
-app.listen(8080, () => {
+app.listen(8081, () => {
     signale.success("Server for muscles service online in port 8080");
 });
 
