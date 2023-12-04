@@ -11,6 +11,6 @@ const signale = new signale_1.Signale();
 app.use(express_1.default.json());
 // Rutas relacionadas con usuarios
 app.use(armRoutes_1.armRouter);
-app.listen(8081, () => {
+app.listen(8082, () => {
     signale.success("Server for muscles service online in port 8080");
 });
