@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(armRouter)
 
 
-app.listen(8081, () => {
+app.listen(8082, () => {
     signale.success("Server for muscles service online in port 8080");
 });
 
