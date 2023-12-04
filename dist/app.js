@@ -10,7 +10,7 @@ const app = (0, express_1.default)();
 const signale = new signale_1.Signale();
 app.use(express_1.default.json());
 // Rutas relacionadas con usuarios
-app.use('/api/v1/', userRoutes_1.userRouter);
-app.listen(8080, () => {
+app.use(userRoutes_1.userRouter);
+app.listen(8081, () => {
     signale.success("Server online in port 8080");
 });
