@@ -18,7 +18,7 @@ userRouter.post('/login',loginController.run.bind(loginController))
 userRouter.put('/setinactive', setAsInactiveController.run.bind(setAsInactiveController))
 
 // Ruta para obtener todos los usuarios
-userRouter.get("/", listAllUserController.run.bind(listAllUserController));
+userRouter.get("/list", listAllUserController.run.bind(listAllUserController));
 
 // Ruta para obtener un usuario por su ID
 userRouter.get("/:id", getUserByIdController.run.bind(getUserByIdController));

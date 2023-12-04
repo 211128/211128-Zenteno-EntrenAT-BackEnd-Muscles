@@ -18,7 +18,7 @@ exports.userRouter.post("/register", dependencies_1.registerController.run.bind(
 exports.userRouter.post('/login', dependencies_7.loginController.run.bind(dependencies_7.loginController));
 exports.userRouter.put('/setinactive', dependencies_1.setAsInactiveController.run.bind(dependencies_1.setAsInactiveController));
 // Ruta para obtener todos los usuarios
-exports.userRouter.get("/", dependencies_2.listAllUserController.run.bind(dependencies_2.listAllUserController));
+exports.userRouter.get("/list", dependencies_2.listAllUserController.run.bind(dependencies_2.listAllUserController));
 // Ruta para obtener un usuario por su ID
 exports.userRouter.get("/:id", dependencies_3.getUserByIdController.run.bind(dependencies_3.getUserByIdController));
 // Ruta para eliminar un usuario por su ID
