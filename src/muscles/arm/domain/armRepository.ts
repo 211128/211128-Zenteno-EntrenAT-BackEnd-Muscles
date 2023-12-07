@@ -1,4 +1,5 @@
 import { Arm } from "./arm";
+import { TagsArm } from "./arm";
 
 
 export interface IArmRepository {
@@ -15,5 +16,10 @@ export interface IArmRepository {
 
     listAllExercises(
     ): Promise<Arm[] | any>
+
+    listAllExercisesWithTag(
+        tagid: number,
+        userid: number
+    ): Promise<TagsArm | any >
     
 }

@@ -11,4 +11,5 @@ exports.armRouter = express_1.default.Router();
 exports.armRouter.post("/add", dependencies_1.registerController.run.bind(dependencies_1.registerController));
 exports.armRouter.get("/muscle/list", dependencies_1.listAllExercisesController.run.bind(dependencies_1.listAllExercisesController));
 exports.armRouter.get("/get/:id", dependencies_1.listAllExercisesByIdController.run.bind(dependencies_1.listAllExercisesByIdController));
+exports.armRouter.post("/user/tag", dependencies_1.listExercisesWithTagController.listAllExercises.bind(dependencies_1.listExercisesWithTagController));
 // Ruta para obtener un usuario por su ID

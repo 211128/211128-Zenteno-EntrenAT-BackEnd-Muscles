@@ -1,5 +1,5 @@
 import { query } from "../../../database/conecction";
-import { Arm } from "../domain/arm";
+import { Arm, TagsArm } from "../domain/arm";
 import { IArmRepository } from "../domain/armRepository";
 
 export class MysqlRepository implements IArmRepository {
@@ -72,31 +72,50 @@ export class MysqlRepository implements IArmRepository {
 }
 
 
-  async listAllExercisesById(id: number): Promise<Arm | null> {
-    try {
-        const sql = "SELECT logid AS id, userid AS userid, exerciseid AS exercises, peso AS weight FROM registroejercicio WHERE logid = ? LIMIT 1";
-        const [rows]: any = await query(sql, [id]);
+async listAllExercisesWithTag(tagid: number, userid: number): Promise<TagsArm | any> {
+  try {
+    // Realiza la llamada a la API de tags utilizando fetch
+    const response = await fetch(`https://tags.entranat.site/${tagid}`);
 
-        // Verificar si no se encontraron resultados o si la respuesta es vacía
-        if (!Array.isArray(rows) || rows.length === 0) {
-            return null;
-        }
-
-        const row = rows[0];
-        const user = new Arm(
-            row.id,
-            row.userid,
-            row.exercises,
-            row.weight,
-        );
-
-       
-
-        return user;
-    } catch (error) {
-        console.error("Error en RegistroEjercicio:", error);
-        return null;
+    if (response.ok) {
+      const remoteData = await response.json();
+      return remoteData;
+    } else {
+      // Maneja el caso en que la llamada a la API de tags no sea exitosa
+      throw new Error(`Error en la API de tags: ${response.statusText}`);
     }
+  } catch (error) {
+    console.error('Error en listAllExercisesWithTag:', error);
+    throw error;
+  }
+}
+
+    async listAllExercisesById(id: number): Promise<Arm | null> {
+      try {
+          const sql = "SELECT logid AS id, userid AS userid, exerciseid AS exercises, peso AS weight FROM registroejercicio WHERE logid = ? LIMIT 1";
+          const [rows]: any = await query(sql, [id]);
+  
+          // Verificar si no se encontraron resultados o si la respuesta es vacía
+          if (!Array.isArray(rows) || rows.length === 0) {
+              return null;
+          }
+  
+          const row = rows[0];
+          const user = new Arm(
+              row.id,
+              row.userid,
+              row.exercises,
+              row.weight,
+          );
+  
+         
+  
+          return user;
+      } catch (error) {
+          console.error("Error en RegistroEjercicio:", error);
+          return null;
+      }
+
 }
 
 

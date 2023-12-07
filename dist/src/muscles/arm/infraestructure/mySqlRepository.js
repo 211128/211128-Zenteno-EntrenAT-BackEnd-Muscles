@@ -67,6 +67,26 @@ class MysqlRepository {
             }
         });
     }
+    listAllExercisesWithTag(tagid, userid) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                // Realiza la llamada a la API de tags utilizando fetch
+                const response = yield fetch(`https://tags.entranat.site/${tagid}`);
+                if (response.ok) {
+                    const remoteData = yield response.json();
+                    return remoteData;
+                }
+                else {
+                    // Maneja el caso en que la llamada a la API de tags no sea exitosa
+                    throw new Error(`Error en la API de tags: ${response.statusText}`);
+                }
+            }
+            catch (error) {
+                console.error('Error en listAllExercisesWithTag:', error);
+                throw error;
+            }
+        });
+    }
     listAllExercisesById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

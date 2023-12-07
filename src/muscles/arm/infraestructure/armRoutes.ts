@@ -1,5 +1,6 @@
 import express from "express";
-import { listAllExercisesByIdController, listAllExercisesController, registerController} from "./controllers/dependencies";
+import { listAllExercisesByIdController, listAllExercisesController, listExercisesWithTagController, registerController} from "./controllers/dependencies";
+
 
 
 
@@ -11,6 +12,8 @@ armRouter.post("/add", registerController.run.bind(registerController));
 armRouter.get("/muscle/list", listAllExercisesController.run.bind(listAllExercisesController));
 
 armRouter.get("/get/:id", listAllExercisesByIdController.run.bind(listAllExercisesByIdController));
+
+armRouter.post("/user/tag", listExercisesWithTagController.listAllExercises.bind(listExercisesWithTagController));
 
 
 // Ruta para obtener un usuario por su ID

@@ -8,3 +8,14 @@ export class Arm {
      ){}
     
   }
+
+  export class TagsArm {
+    constructor(
+        public tagid: number,
+        public userid: number,
+        public descripcion: string,
+        public autor: string,
+    
+     ){}
+    
+  }
