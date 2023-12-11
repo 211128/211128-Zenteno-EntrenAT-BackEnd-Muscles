@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/rutine', (req: Request, res: Response) => {
   res.status(200).send('Rutina ejecutada con éxito');
 })
-app.use('/api/v1/users',proxy('https://users.entranat.site'))
+app.use('/api/v1/users',proxy('http://localhost:8080'))
 app.use('/api/v1/exercise',proxy('https://muscles.entranat.site'));
 app.use('/api/v1/tags',proxy('https://tags.entranat.site'));
 
