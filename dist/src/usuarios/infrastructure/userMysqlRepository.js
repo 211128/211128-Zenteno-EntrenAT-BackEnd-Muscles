@@ -13,10 +13,20 @@ exports.UserMysqlRepository = void 0;
 const conecction_1 = require("../../database/conecction");
 const user_1 = require("../domain/user");
 const hash_1 = require("./helpers/hash");
+const token_1 = require("./helpers/token");
 class UserMysqlRepository {
     registerUser(name, email, password, height, weight, sex) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const checkEmailSql = `
+                SELECT COUNT(*) as emailCount
+                FROM usuario
+                WHERE correo = ?;
+                `;
+                const [emailResults] = yield (0, conecction_1.query)(checkEmailSql, [email]);
+                if (emailResults[0].emailCount > 0) {
+                    throw new Error("El correo electrónico ya está registrado en la base de datos.");
+                }
                 const hashPassword = yield (0, hash_1.encrypt)(password);
                 const sql = "INSERT INTO usuario (nombre, correo, contraseña, altura, peso, gender) VALUES (?, ?, ?, ?, ?, ?)";
                 const params = [name, email, hashPassword, height, weight, sex];
@@ -50,7 +60,9 @@ class UserMysqlRepository {
                 if (!isPasswordMatch) {
                     return null; // Contraseña incorrecta
                 }
-                const user = new user_1.VerifyLogin(userRow.userid, userRow.username, userRow.email);
+                // Generate a JWT token using your tokenSigIn function
+                const token = (0, token_1.tokenSigIn)(userRow.username, userRow.email);
+                const user = new user_1.VerifyLogin(userRow.userid, userRow.username, userRow.email, token);
                 return user;
             }
             catch (error) {
@@ -128,58 +140,6 @@ class UserMysqlRepository {
             catch (error) {
                 console.error("Error en listAllInactiveUser:", error);
                 return null; // Retorna null en caso de error o podrías optar por retornar un array vacío dependiendo de tu lógica de negocio
-            }
-        });
-    }
-    updateUsers(id, weight) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const updates = {};
-            const keys = Object.keys(updates);
-            if (keys.length === 0)
-                return null; // No hay nada que actualizar.
-            const sqlParts = keys.map(key => `${key} = ?`);
-            const sql = `UPDATE usuario SET ${sqlParts.join(', ')} WHERE UserID = ?`;
-            try {
-                const values = keys.map(key => updates[key]);
-                values.push(id);
-                yield (0, conecction_1.query)(sql, values);
-                const [updatedRows] = yield (0, conecction_1.query)('SELECT * FROM usario WHERE UserID = ?', [id]);
-                if (!updatedRows || updatedRows.length === 0) {
-                    throw new Error('No hay usuario con esa ID.');
-                }
-                const updatedUser = new user_1.User(updatedRows[0].id, updatedRows[0].name, updatedRows[0].email, updatedRows[0].password, updatedRows[0].height, updatedRows[0].weight, updatedRows[0].sex);
-                return updatedUser;
-            }
-            catch (error) {
-                console.error('Error updating user:', error);
-                throw error; // O maneja el error de la manera que prefieras.
-            }
-        });
-    }
-    updatePassword(id, password, cpassword) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                // Asumiendo que 'password' ya está cifrado.
-                const hashPassword = yield (0, hash_1.encrypt)(password);
-                // Verificar si las contraseñas coinciden
-                if (password !== cpassword) {
-                    throw new Error('La contraseña y la verificación de contraseña no coinciden.');
-                }
-                const sql = 'UPDATE usuario SET password = ? WHERE id = ?';
-                const result = yield (0, conecction_1.query)(sql, [hashPassword, id]);
-                // Verificar si se actualizó alguna fila
-                if (!result || result.affectedRows === 0)
-                    return null;
-                // Obtener el usuario actualizado
-                const [updatedRows] = yield (0, conecction_1.query)('SELECT * FROM users WHERE id = ?', [id]);
-                if (updatedRows.length === 0)
-                    return null;
-                const updatedUser = new user_1.User(updatedRows[0].id, updatedRows[0].name, updatedRows[0].email, updatedRows[0].password, updatedRows[0].height, updatedRows[0].weight, updatedRows[0].sex);
-                return updatedUser;
-            }
-            catch (error) {
-                console.error('Error al actualizar la contraseña:', error);
-                throw error; // O maneja el error de la manera que prefieras.
             }
         });
     }

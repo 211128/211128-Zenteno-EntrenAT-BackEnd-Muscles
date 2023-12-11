@@ -39,7 +39,7 @@ export class RegisterController {
         // Manejar el caso donde el registro no fue exitoso
         return res.status(400).json({
           status: "error",
-          message: "El registro de usuario no fue exitoso.",
+          message: "Ya está registrado este correo.",
         });
       }
     } catch (err) {

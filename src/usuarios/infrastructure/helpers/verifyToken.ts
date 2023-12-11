@@ -15,7 +15,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
 
     const tokenData = await verifyToken(token);
   
-    if (tokenData && tokenData.id) {
+    if (tokenData && tokenData.name) {
         next();
     } else {
         return res.status(401).send({ error: "Token inválido" });

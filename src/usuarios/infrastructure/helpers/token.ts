@@ -6,16 +6,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 interface TokenPayload {
-    id: number;
+    name: string;
     email: string;
 }
 
 
 
-export const tokenSigIn = (id:number, email:string ): string => {
+export const tokenSigIn = (name:string, email:string ): string => {
     return jwt.sign(
         {
-            id: id,
+            name: name,
             email: email
         },
         process.env.KEY_TOKEN!,

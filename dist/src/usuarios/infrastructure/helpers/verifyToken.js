@@ -20,7 +20,7 @@ const validateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         return res.status(400).send({ error: "Token no encontrado" });
     }
     const tokenData = yield (0, token_1.verifyToken)(token);
-    if (tokenData && tokenData.id) {
+    if (tokenData && tokenData.name) {
         next();
     }
     else {

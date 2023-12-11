@@ -7,9 +7,9 @@ exports.verifyToken = exports.tokenSigIn = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const tokenSigIn = (id, email) => {
+const tokenSigIn = (name, email) => {
     return jsonwebtoken_1.default.sign({
-        id: id,
+        name: name,
         email: email
     }, process.env.KEY_TOKEN, {
         expiresIn: '74h'

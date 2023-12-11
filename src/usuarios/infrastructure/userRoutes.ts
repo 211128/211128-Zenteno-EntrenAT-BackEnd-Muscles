@@ -3,10 +3,8 @@ import { registerController, setAsInactiveController } from "./controllers/depen
 import { listAllUserController } from "./controllers/dependencies";
 import { getUserByIdController } from "./controllers/dependencies";
 import { deleteUserByIdController } from "./controllers/dependencies";
-import { updateUserController } from "./controllers/dependencies";
-import { updatePasswordController } from "./controllers/dependencies";
 import { loginController } from "./controllers/dependencies";
-
+import { validateToken } from "./helpers/verifyToken";
 
 export const userRouter = express.Router();
 
@@ -15,20 +13,14 @@ userRouter.post("/register", registerController.run.bind(registerController));
 
 userRouter.post('/login',loginController.run.bind(loginController))
 
-userRouter.put('/setinactive', setAsInactiveController.run.bind(setAsInactiveController))
+userRouter.put('/setinactive', validateToken,setAsInactiveController.run.bind(setAsInactiveController))
 
 // Ruta para obtener todos los usuarios
-userRouter.get("/list", listAllUserController.run.bind(listAllUserController));
+userRouter.get("/list", validateToken,listAllUserController.run.bind(listAllUserController));
 
 // Ruta para obtener un usuario por su ID
-userRouter.get("/:id", getUserByIdController.run.bind(getUserByIdController));
+userRouter.get("/:id", validateToken,getUserByIdController.run.bind(getUserByIdController));
 
 // Ruta para eliminar un usuario por su ID
-userRouter.delete("/:id", deleteUserByIdController.run.bind(deleteUserByIdController));
-
-// Ruta para actualizar un usuario por su ID
-userRouter.put("/:id", updateUserController.run.bind(updateUserController));
-
-// Ruta para actualizar la contraseña de un usuario por su ID
-userRouter.post("/:id/update-password", updatePasswordController.run.bind(updatePasswordController));
+userRouter.delete("/:id", validateToken,deleteUserByIdController.run.bind(deleteUserByIdController));
 

@@ -2,6 +2,7 @@ import { query } from "../../database/conecction";
 import { User, VerifyLogin } from "../domain/user";
 import { IUserRepository } from "../domain/userRepository";
 import { compare, encrypt } from './helpers/hash';
+import { tokenSigIn } from "./helpers/token";
 
 
 
@@ -10,6 +11,17 @@ import { compare, encrypt } from './helpers/hash';
 export class UserMysqlRepository implements IUserRepository {
   async registerUser(name: string, email: string, password: string, height: number, weight: number, sex: string): Promise<User | null> {
     try {
+
+      const checkEmailSql = `
+                SELECT COUNT(*) as emailCount
+                FROM usuario
+                WHERE correo = ?;
+                `;
+
+            const [emailResults]: any = await query(checkEmailSql, [email]);
+            if (emailResults[0].emailCount > 0) {
+                throw new Error("El correo electrónico ya está registrado en la base de datos.");
+            }
       
       const hashPassword = await encrypt(password);
       const sql = "INSERT INTO usuario (nombre, correo, contraseña, altura, peso, gender) VALUES (?, ?, ?, ?, ?, ?)";
@@ -46,15 +58,15 @@ export class UserMysqlRepository implements IUserRepository {
             return null; // Contraseña incorrecta
         }
 
+        // Generate a JWT token using your tokenSigIn function
+        const token: string = tokenSigIn(userRow.username, userRow.email);
+
         const user = new VerifyLogin(
             userRow.userid,
             userRow.username,
             userRow.email,
-     
-          
+            token
         );
-
-        
 
         return user;
     } catch (error) {
@@ -158,80 +170,7 @@ async listAllInactiveUser(): Promise<User[] | null> {
   }
 }
 
-async updateUsers(id: number, weight: number): Promise<User | null> {
-  const updates: { [key: string]: any } = {};
-  
-  const keys = Object.keys(updates);
-  if (keys.length === 0) return null; // No hay nada que actualizar.
 
-  const sqlParts = keys.map(key => `${key} = ?`);
-  const sql = `UPDATE usuario SET ${sqlParts.join(', ')} WHERE UserID = ?`;
-
-  try {
-    const values = keys.map(key => updates[key]);
-    values.push(id);
-    await query(sql, values);
-    const [updatedRows]: any = await query('SELECT * FROM usario WHERE UserID = ?', [id]);
-    if (!updatedRows || updatedRows.length === 0) {
-      throw new Error('No hay usuario con esa ID.');
-    }
-
-    const updatedUser = new User(
-      updatedRows[0].id,
-      updatedRows[0].name,
-      updatedRows[0].email,
-      updatedRows[0].password,
-      updatedRows[0].height,
-      updatedRows[0].weight,
-      updatedRows[0].sex,
-    );
-
-    return updatedUser;
-  } catch (error) {
-    console.error('Error updating user:', error);
-    throw error; // O maneja el error de la manera que prefieras.
-  }
-}
-
-
-
-async updatePassword(id: number, password: string, cpassword: string): Promise<User | null> {
-  try {
-      // Asumiendo que 'password' ya está cifrado.
-      const hashPassword = await encrypt(password);
-
-      // Verificar si las contraseñas coinciden
-      if (password !== cpassword) {
-          throw new Error('La contraseña y la verificación de contraseña no coinciden.');
-      }
-
-      const sql = 'UPDATE usuario SET password = ? WHERE id = ?';
-      const result: any = await query(sql, [hashPassword, id]);
-
-      // Verificar si se actualizó alguna fila
-      if (!result || result.affectedRows === 0) return null;
-
-      // Obtener el usuario actualizado
-      const [updatedRows]: any = await query('SELECT * FROM users WHERE id = ?', [id]);
-      if (updatedRows.length === 0) return null;
-
-      const updatedUser = new User(
-        updatedRows[0].id,
-        updatedRows[0].name,
-        updatedRows[0].email,
-        updatedRows[0].password,
-        updatedRows[0].height,
-        updatedRows[0].weight,
-        updatedRows[0].sex,
-      );
-      
-      
-      return updatedUser;
-  } catch (error) {
-      console.error('Error al actualizar la contraseña:', error);
-      throw error; // O maneja el error de la manera que prefieras.
-  }
-}
 
 async setAsInactive(id: number | null): Promise<number | null> {
   try {

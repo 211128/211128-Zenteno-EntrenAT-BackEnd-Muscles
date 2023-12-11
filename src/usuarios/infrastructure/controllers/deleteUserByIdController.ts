@@ -11,7 +11,7 @@ export class DeleteUserController {
             if (!id) {
                 return res.status(400).send({
                     status: "error",
-                    message: "Se requiere un UUID válido en la solicitud.",
+                    message: "Se requiere un ID válido en la solicitud.",
                 });
             }
 

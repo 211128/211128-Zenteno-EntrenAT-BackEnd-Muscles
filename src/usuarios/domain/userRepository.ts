@@ -13,7 +13,7 @@ export interface IUserRepository {
   loginUser(
     email:string,
     password:string
-):Promise<VerifyLogin | User | string | null>  //listo
+):Promise<VerifyLogin | string | null>  //listo
 
 
   listAllUsers(): Promise<User[] | null>;
@@ -22,20 +22,11 @@ export interface IUserRepository {
 
   getUserById(id: number): Promise<User | null>;
 
-  listAllInactiveUser(): Promise<User[] | User | null>;
 
-  updatePassword(id: number, password: string, cpassword: string): Promise<User | null> 
 
   setAsInactive(id: number): Promise<number | null>;
 
 
-  
 
-
-  updateUsers(
-    id: number,
-    weight: number
-): Promise<User | null>
-
-
+ 
 }

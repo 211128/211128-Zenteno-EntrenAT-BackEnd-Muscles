@@ -14,10 +14,11 @@ class User {
 }
 exports.User = User;
 class VerifyLogin {
-    constructor(id, name, email) {
+    constructor(id, name, email, token) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.token = token;
     }
 }
 exports.VerifyLogin = VerifyLogin;
