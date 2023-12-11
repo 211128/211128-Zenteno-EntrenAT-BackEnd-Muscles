@@ -1,5 +1,8 @@
 import { User } from "../domain/user";
 import { IUserRepository } from "../domain/userRepository";
+import { ValidatorRegisterUser } from "../domain/validation/user";
+import { validate } from "class-validator";
+
 
 export class RegisterUseCase {
   constructor(readonly userRepository: IUserRepository) {}
@@ -12,6 +15,12 @@ export class RegisterUseCase {
     weight: number,
     sex: string
   ): Promise<User | null> {
+    
+    let data = new ValidatorRegisterUser(name, email, height, weight,sex, password);
+    const validation = await validate(data)
+    if (validation.length > 0) {
+        throw new Error(JSON.stringify(validation));
+    }
     try {
       const createNewUser = await this.userRepository.registerUser(
         name,
